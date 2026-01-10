@@ -155,7 +155,15 @@ return idx.systems || [];
 async function loadIndexBase() {
 const res = await fetch('data/sistemas/sistemas-index.json');
 const idx = await res.json();
-return idx.systems || [];
+// Build the base systems array
+const systems = idx.systems || [];
+// Expose the base index globally so that other modules (e.g. the Arias selector UI)
+// can lookup system metadata by id without refetching the index.  Without this
+// assignment, window.__sistemasIndex would be undefined and the selector
+// would not be able to render human‑friendly variant names or locate the
+// complete system objects when calculating directly from a system ID.
+window.__sistemasIndex = systems;
+return systems;
 }
 document.addEventListener('DOMContentLoaded', async () => {
 if (systemsIndexEnriched.length === 0) {
@@ -1020,15 +1028,21 @@ window.AriasEngine.selectAndCalculateBySystemId = function (systemId) {
   // 1️⃣ Guardamos el sistema seleccionado (si el motor usa estado)
   window.__selectedSystemId = systemId;
 
-  // 2️⃣ Si existe una función interna que ya calcula por systemId, la usamos
-  if (typeof window.calcularYMostrarConSistema === "function") {
-    window.calcularYMostrarConSistema(systemId, false);
+  // 2️⃣ Buscar la metadata del sistema en el índice base y llamar al cálculo con meta
+  const index = window.__sistemasIndex || [];
+  const meta = index.find(s => s.id === systemId);
+  if (!meta) {
+    console.error(`AriasEngine: systemId no encontrado: ${systemId}`);
     return;
   }
-
+  if (typeof window.calcularYMostrarConSistema === "function") {
+    // Pasamos el objeto meta en vez del id, la función espera el objeto completo
+    window.calcularYMostrarConSistema(meta, false);
+    return;
+  }
   // 3️⃣ Fallback: intenta disparar el flujo actual
   console.warn(
-    "AriasEngine: no se encontró calcularYMostrarConSistema(systemId). " +
+    "AriasEngine: no se encontró calcularYMostrarConSistema(meta). " +
     "Revisa el nombre de la función de cálculo."
   );
 };

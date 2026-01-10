@@ -1,1 +1,6 @@
-import './engine/presupuestoApp.js';
+import "./engine/presupuestoApp.js";
+import { initAriasFlow } from "./ui/ariasFlow.js";
+
+window.addEventListener("DOMContentLoaded", () => {
+  initAriasFlow();
+});

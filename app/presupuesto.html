@@ -1,3 +1,10 @@
+<script>
+  // opcional: ocultar legacy al inicio
+  window.addEventListener("DOMContentLoaded", () => {
+    const legacy = document.querySelector("#legacy-root");
+    if (legacy) legacy.style.display = "none";
+  });
+</script>
 <!doctype html>
 <html lang="es">
 <head>
@@ -8,6 +15,12 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
 <link rel="stylesheet" href="./assets/styles.css" />
 </head>
+<div id="arias-root"></div>
+
+<!-- envuelve el selector actual en un contenedor -->
+<div id="legacy-root">
+  <!-- TODO: aquí queda tu UI actual tal cual -->
+</div>
 <body>
 <header class="header">
 <i class="fas fa-project-diagram" aria-hidden="true"></i>

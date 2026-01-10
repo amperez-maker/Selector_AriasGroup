@@ -1001,3 +1001,34 @@ el.addEventListener('change', async() => await calcularYMostrar(false));
 });
 renderProyecto();
 })();
+// =======================================================
+// ARIAS ENGINE – API PÚBLICA PARA SELECTOR ARIAS v2
+// =======================================================
+
+window.AriasEngine = window.AriasEngine || {};
+
+/**
+ * Ejecuta el cálculo directamente a partir de un systemId
+ * (ej: "M-70-13-2")
+ */
+window.AriasEngine.selectAndCalculateBySystemId = function (systemId) {
+  if (!systemId) {
+    console.error("AriasEngine: systemId vacío");
+    return;
+  }
+
+  // 1️⃣ Guardamos el sistema seleccionado (si el motor usa estado)
+  window.__selectedSystemId = systemId;
+
+  // 2️⃣ Si existe una función interna que ya calcula por systemId, la usamos
+  if (typeof window.calcularYMostrarConSistema === "function") {
+    window.calcularYMostrarConSistema(systemId, false);
+    return;
+  }
+
+  // 3️⃣ Fallback: intenta disparar el flujo actual
+  console.warn(
+    "AriasEngine: no se encontró calcularYMostrarConSistema(systemId). " +
+    "Revisa el nombre de la función de cálculo."
+  );
+};

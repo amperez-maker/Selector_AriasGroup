@@ -69,7 +69,29 @@ export async function initAriasFlow() {
 
     // Aquí, por ahora mostramos los systemIds directos.
     // Luego: lo traducimos a "variantes" bonitas (70/90, 1/2 capas, etc.) usando el index.
-    setOptions(varianteSel, sis.allowedSystemIds, x => x, x => x);
+    const index = window.__sistemasIndex || [];
+
+const variantes = sis.allowedSystemIds.map(id => {
+  const meta = index.find(s => s.id === id);
+  if (!meta) return { id, label: id };
+
+  const placas = meta.capas_por_cara * 2;
+  const placaTxt = meta.placa_tipo || "STD";
+  const hmax = meta.altura_max ? `H máx ${meta.altura_max} m` : "";
+
+  return {
+    id,
+    label: `${meta.perfil_mm} mm · ${placas} placas · ${placaTxt} · ${hmax}`
+  };
+});
+
+setOptions(
+  varianteSel,
+  variantes,
+  v => v.id,
+  v => v.label
+);
+
   }
 
   familiaSel.addEventListener("change", refreshSistemas);

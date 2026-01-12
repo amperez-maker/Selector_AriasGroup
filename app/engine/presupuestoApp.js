@@ -17,7 +17,9 @@ maximumFractionDigits: 2
 }
 // Mantener EUR para compatibilidad temporal (deprecated)
 const EUR = n => fmtEUR(n);
-const LOGO_SVG = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA4MDAgMjAwIiB3aWR0aD0iODAwIiBoZWlnaHQ9IjIwMCI+PHRleHQgeD0iMjAiIHk9IjExMCIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjkwIiBmb250LXdlaWdodD0iOTAwIiBmaWxsPSIjZTc0YzNjIj5BUklBUzwvdGV4dD48dGV4dCB4PSIyMCIgeT0iMTYwIiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMzgiIGZvbnQtd2VpZ2h0PSIzMDAiIGZpbGw9IiMyYzNlNTAiPkdST1VQIENhcmliZSBTUkw8L3RleHQ+PC9zdmc+';
+// Logo corporativo (usar PNG oficial con “arias”)
+// Logo corporativo (versión recortada/apaisada para PDF y cabecera)
+const LOGO_URL = './assets/logo-arias-wide.png';
 // Schema adapter: compatibilidad v1/v2
 function normalizeSystemToV1(sys) {
 if (sys.capas !== undefined && sys.placa !== undefined && typeof sys.placa === 'string') {
@@ -155,7 +157,15 @@ return idx.systems || [];
 async function loadIndexBase() {
 const res = await fetch('data/sistemas/sistemas-index.json');
 const idx = await res.json();
-return idx.systems || [];
+// Build the base systems array
+const systems = idx.systems || [];
+// Expose the base index globally so that other modules (e.g. the Arias selector UI)
+// can lookup system metadata by id without refetching the index.  Without this
+// assignment, window.__sistemasIndex would be undefined and the selector
+// would not be able to render human‑friendly variant names or locate the
+// complete system objects when calculating directly from a system ID.
+window.__sistemasIndex = systems;
+return systems;
 }
 document.addEventListener('DOMContentLoaded', async () => {
 if (systemsIndexEnriched.length === 0) {
@@ -406,7 +416,7 @@ const sys = systemsIndexBase.find(s => s.id === sysEnriched.id);
 const nombre = sys ? (sys.nombre_comercial || sys.id) : (sysEnriched.nombre_comercial || sysEnriched.id);
 html += `<div style="border: 1px solid #ddd; padding: 0.75rem; border-radius: 4px; background: #fff; cursor: pointer; transition: background 0.2s;" onmouseover="this.style.background='#f0f0f0'" onmouseout="this.style.background='#fff'" onclick="seleccionarSistemaFinal('${sysEnriched.id}')">
 <div style="font-weight: 600; margin-bottom: 0.25rem;">${nombre}</div>
-<button style="padding: 0.5rem 1rem; background: #e74c3c; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 600; margin-top: 0.5rem;">Seleccionar</button>
+<button style="padding: 0.5rem 1rem; background: #1050B0; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 600; margin-top: 0.5rem;">Seleccionar</button>
 </div>`;
 });
 html += '</div>';
@@ -757,7 +767,7 @@ tr.innerHTML = `
 <td class="num">${fmtEUR(precioVenta)}</td>
 <td class="num">${fmtEUR(totalVenta)}</td>
 <td>
-<button onclick="eliminarSistema(${idx})" class="btn-small" style="background:#e74c3c" aria-label="Eliminar sistema"><i class="fas fa-trash" aria-hidden="true"></i></button>
+<button onclick="eliminarSistema(${idx})" class="btn-small" style="background:#1050B0" aria-label="Eliminar sistema"><i class="fas fa-trash" aria-hidden="true"></i></button>
 </td>
 `;
 tbody.appendChild(tr);
@@ -768,6 +778,25 @@ window.eliminarSistema = function(idx){
 proyecto.splice(idx, 1);
 renderProyecto();
 }
+
+// Carga una imagen (png/jpg) y la convierte a DataURL (para jsPDF)
+async function loadImageDataURL(url) {
+  try {
+    const res = await fetch(url);
+    if (!res.ok) return null;
+    const blob = await res.blob();
+    return await new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onloadend = () => resolve(reader.result);
+      reader.onerror = () => resolve(null);
+      reader.readAsDataURL(blob);
+    });
+  } catch (e) {
+    console.warn('No se pudo cargar el logo:', e);
+    return null;
+  }
+}
+
 function svgToImageData(svgDataUri, callback) {
 const canvas = document.createElement('canvas');
 canvas.width = 800; canvas.height = 200;
@@ -817,17 +846,20 @@ const doc = new jsPDF({orientation:'p',unit:'mm',format:'a4'});
 const date = new Date().toLocaleDateString('es-ES');
 const projectName = document.getElementById('projectName').value || 'Proyecto';
 const total = proyecto.reduce((t,p)=>t+(p.precioVentaSistema || 0),0);
-return new Promise((resolve) => {
-svgToImageData(LOGO_SVG, (logoData) => {
-if(logoData) doc.addImage(logoData, 'PNG', 14, 10, 60, 15);
+
+const logoData = await loadImageDataURL(LOGO_URL);
+if (logoData) {
+  // Mantener proporción (logo apaisado). Evita que se "aplasten" las letras.
+  doc.addImage(logoData, 'PNG', 14, 10, 55, 27);
+}
 doc.setFontSize(20);
-doc.setTextColor('#e74c3c');
-doc.text('Presupuesto', 14, logoData ? 28 : 22);
+doc.setTextColor('#1050B0');
+doc.text('Presupuesto', 14, logoData ? 48 : 22);
 doc.setFontSize(11);
 doc.setTextColor('#666');
-doc.text(`Proyecto: ${projectName}`, 14, logoData ? 34 : 32);
-doc.text(`Fecha: ${date}`, 14, logoData ? 40 : 38);
-let y = logoData ? 52 : 48;
+doc.text(`Proyecto: ${projectName}`, 14, logoData ? 56 : 32);
+doc.text(`Fecha: ${date}`, 14, logoData ? 62 : 38);
+let y = logoData ? 76 : 48;
 const resumenData = [];
 proyecto.forEach((p, idx) => {
 if(y > 240) { doc.addPage(); y = 20; }
@@ -888,19 +920,21 @@ doc.text(fmtEUR(item.total), 155, y);
 y += alturaFila + 2;
 });
 y += 3; doc.setDrawColor(200, 200, 200); doc.setLineWidth(0.5); doc.line(14, y, 196, y); y += 6;
-doc.setFontSize(12); doc.setFont(undefined, 'bold'); doc.setTextColor('#e74c3c');
-doc.text('TOTAL PROYECTO:', 120, y); doc.text(fmtEUR(total), 155, y); y += 12;
+doc.setFontSize(12); doc.setFont(undefined, 'bold'); doc.setTextColor('#1050B0');
+// Evitar solapes: etiqueta a la izquierda, total alineado a la derecha
+doc.text('TOTAL PROYECTO:', 14, y);
+doc.text(fmtEUR(total), 196, y, { align: 'right' });
+y += 12;
 let notaLegal = '';
 const primerIncoterm = resumenData[0]?.incoterm || 'CIF';
 if (primerIncoterm === 'EXW') notaLegal = '** Precio EXW. No incluye transporte ni impuestos.';
 else if (primerIncoterm === 'FOB') notaLegal = '** Precio FOB. No incluye transporte ni impuestos.';
 else notaLegal = '** Precio CIF. No incluye impuestos.';
 doc.setFontSize(8); doc.setFont(undefined, 'normal'); doc.setTextColor('#666');
+// Evitar que la nota legal se solape al final de página
+if (y > 285) { doc.addPage(); y = 20; }
 doc.text(notaLegal, 14, y);
 doc.save(`Presupuesto_${projectName.replace(/\s+/g,'_')}_${date.replace(/\//g,'-')}.pdf`);
-resolve();
-});
-});
 }
 function exportExcel(){
 if(proyecto.length === 0){ alert('No hay sistemas en el proyecto'); return; }
@@ -1020,15 +1054,21 @@ window.AriasEngine.selectAndCalculateBySystemId = function (systemId) {
   // 1️⃣ Guardamos el sistema seleccionado (si el motor usa estado)
   window.__selectedSystemId = systemId;
 
-  // 2️⃣ Si existe una función interna que ya calcula por systemId, la usamos
-  if (typeof window.calcularYMostrarConSistema === "function") {
-    window.calcularYMostrarConSistema(systemId, false);
+  // 2️⃣ Buscar la metadata del sistema en el índice base y llamar al cálculo con meta
+  const index = window.__sistemasIndex || [];
+  const meta = index.find(s => s.id === systemId);
+  if (!meta) {
+    console.error(`AriasEngine: systemId no encontrado: ${systemId}`);
     return;
   }
-
+  if (typeof window.calcularYMostrarConSistema === "function") {
+    // Pasamos el objeto meta en vez del id, la función espera el objeto completo
+    window.calcularYMostrarConSistema(meta, false);
+    return;
+  }
   // 3️⃣ Fallback: intenta disparar el flujo actual
   console.warn(
-    "AriasEngine: no se encontró calcularYMostrarConSistema(systemId). " +
+    "AriasEngine: no se encontró calcularYMostrarConSistema(meta). " +
     "Revisa el nombre de la función de cálculo."
   );
 };

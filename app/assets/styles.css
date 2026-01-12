@@ -1,7 +1,9 @@
 :root{
---rojo:#e74c3c;
---gris:#2c3e50;
---light:#ecf0f1;
+/* Colores corporativos Arias Group (extraídos del logo) */
+--rojo:#1050B0; /* se mantiene el nombre por compatibilidad: es nuestro color primario */
+--gris:#303030;
+--light:#f5f7fb;
+--azul-2:#0B66D6;
 --font-base:16px;
 --space-xs:0.5rem;
 --space-sm:0.75rem;
@@ -9,6 +11,102 @@
 --space-lg:1.5rem;
 --space-xl:2rem;
 --tap-target:3rem;
+}
+
+/* Marca */
+.brand{
+  display:flex;
+  align-items:center;
+  gap:0.75rem;
+}
+.brand img{
+  height:32px;
+  width:auto;
+  display:block;
+}
+
+/* Logo reutilizable (cabecera, portada, etc.) */
+.brand-logo{
+  height:32px;
+  width:auto;
+  display:block;
+  object-fit:contain;
+}
+
+@media (max-width:480px){
+  .brand img, .brand-logo{ height:26px; }
+}
+
+/* Resumen: evita solapes en pantallas pequeñas */
+.summary-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+  gap:0.75rem;
+}
+.summary-total{
+  font-size:1.35rem;
+  font-weight:800;
+  color:var(--rojo);
+  line-height:1.2;
+  word-break:break-word;
+}
+
+/* ---------------------------------------------------------------------
+   Estilos para el nuevo Selector Arias
+   Estas clases aplican la misma estética minimalista y profesional de la
+   aplicación al componente v2 (Familia → Sistema → Variante).
+   --------------------------------------------------------------------- */
+.ag-card{
+  background:#fff;
+  border-radius:0.75rem;
+  box-shadow:0 2px 8px rgba(0,0,0,.08);
+  padding:var(--space-md);
+  margin-bottom:var(--space-md);
+}
+.ag-card h2{
+  margin-top:0;
+  margin-bottom:var(--space-sm);
+  font-size:1.25rem;
+  font-weight:700;
+  color:var(--gris);
+  border-bottom:2px solid var(--rojo);
+  padding-bottom:var(--space-xs);
+}
+.ag-card p.muted{
+  font-size:0.875rem;
+  color:#7f8c8d;
+  margin-top:0;
+  margin-bottom:var(--space-md);
+}
+.ag-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(180px,1fr));
+  gap:var(--space-md);
+}
+.ag-grid label{
+  display:flex;
+  flex-direction:column;
+  gap:var(--space-xs);
+  font-size:0.875rem;
+  color:var(--gris);
+}
+.ag-actions{
+  display:flex;
+  flex-direction:row;
+  gap:var(--space-sm);
+  margin-top:var(--space-md);
+}
+.ag-actions button{
+  flex:1 1 auto;
+}
+.ag-actions button.primary{
+  background:var(--rojo);
+  color:#fff;
+}
+.ag-actions button.ghost{
+  background:#fff;
+  color:var(--gris);
+  border:2px solid var(--gris);
 }
 *{box-sizing:border-box}
 body{

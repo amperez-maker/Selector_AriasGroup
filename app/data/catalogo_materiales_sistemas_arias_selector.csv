@@ -53,32 +53,32 @@ L2334300A,Perfil Angular Z1 3.000 mm,ml,0.84,RESTO
 L2334300B,Perfil Angular Z2 3.000 mm,ml,1.24,RESTO
 U201928300A,Perfil Clip Z1 3.000 mm,ml,0.85,RESTO
 U193019300A,Perfil U 30 Z1 3.000 mm,ml,1.10,RESTO
-304000,Horquilla cuellgue rápida M6 TC 47,ud,0.195,RESTO
+304000,Horquilla cuellgue rapida M6 TC 47,ud,0.195,RESTO
 301008,Horquilla cuellgue M6 TC 48,ud,0.362,RESTO
 304001,Horquilla cuellgue M6 TC 60,ud,0.408,RESTO
 304007,Pieza de empalme TC 47,ud,0.213,RESTO
 304008,Pieza de empalme TC 60,ud,0.298,RESTO
 304014,Cruceta TC 47,ud,0.448,RESTO
 304015,Cruceta TC 60,ud,0.550,RESTO
-304021,Suspensión TC 47 90 mm,ud,0.136,RESTO
-304022,Suspensión TC 47 180 mm,ud,0.207,RESTO
-304023,Suspensión TC 47 240 mm,ud,0.484,RESTO
-301060,Gancho fijación viga ≤16 mm,ud,5.740,RESTO
+304021,Sspensi�n TC 47 90 mm,ud,0.136,RESTO
+304022,Sspensi�n TC 47 180 mm,ud,0.207,RESTO
+304023,Sspensi�n TC 47 240 mm,ud,0.484,RESTO
+301060,Gancho fijaci�n viga ≤16 mm,ud,5.740,RESTO
 304029,Anclaje directo 47x120,ud,0.340,RESTO
 304030,Anclaje directo 60x120,ud,0.386,RESTO
 304042,Clip horizontal 4-10 mm,ud,0.675,RESTO
 304043,Clip horizontal 10-15 mm,ud,0.714,RESTO
-304049,Aislador acústico TC 47,ud,3.348,RESTO
-304050,Aislador acústico trasdosado,ud,6.857,RESTO
+304049,Aislador ac�stico TC 47,ud,3.348,RESTO
+304050,Aislador ac�stico trasdosado,ud,6.857,RESTO
 304095,Varilla roscada Ø6x1000,ml,0.009,RESTO
 304096,Varilla roscada Ø6x2000,ml,0.038,RESTO
-304097,Manguito cilíndrico Ø6x20,ud,0.249,RESTO
+304097,Manguito cil�ndrico Ø6x20,ud,0.249,RESTO
 304036,Anclaje Omega M6 20 mm,ud,0.394,RESTO
 304056,Cinta juntas papel 23 m,ml,0.103,RESTO
 304057,Cinta juntas papel 75 m,ml,0.282,RESTO
 304058,Cinta juntas papel 150 m,ml,0.838,RESTO
-304064,Cinta guardavivos 12.5 m,ml,1.125,RESTO
-304065,Cinta guardavivos 30 m,ml,1.738,RESTO
+304064,Cinta guarda vivos 12.5 m,ml,1.125,RESTO
+304065,Cinta guarda vivos 30 m,ml,1.738,RESTO
 304078,Cinta refuerzo fibra vidrio 45 m,ml,0.088,RESTO
 304079,Cinta refuerzo fibra vidrio 153 m,ml,1.198,RESTO
 301121,Malla Externa Light 50 m,m,33.60,RESTO
@@ -108,12 +108,12 @@ U193019300A,Perfil U 30 Z1 3.000 mm,ml,1.10,RESTO
 304135,Tornillo metal-metal Ø13x9.5 mm,ud,0.018,RESTO
 301244,Tornillo exterior Externa Light Ø4.0x42 mm,ud,0.159,RESTO
 301245,Tornillo exterior Externa Light Ø4.0x41 mm,ud,0.191,RESTO
-301240,Tornillo exterior Spoon Ø4.0x42 mm,ud,0.074,RESTO
-301241,Tornillo exterior Spoon Ø4.0x41 mm,ud,0.087,RESTO
-304080,Trampilla metálica lacada 200x200 mm,ud,20.63,RESTO
+301240,Tornillo exterior Son Ø4.0x42 mm,ud,0.074,RESTO
+301241,Tornillo exterior Son Ø4.0x41 mm,ud,0.087,RESTO
+304080,Trampilla met�lica lacada 200x200 mm,ud,20.63,RESTO
 304085,Trampilla aluminio AQUA 200x200 mm,ud,25.44,RESTO
-301761,Trampilla ignífuga EI60 300x300 mm,ud,298.08,RESTO
-301461,Trampilla ignífuga EI120 300x300 mm,ud,332.69,RESTO
+301761,Trampilla ign�fuga EI60 300x300 mm,ud,298.08,RESTO
+301461,Trampilla ign�fuga EI120 300x300 mm,ud,332.69,RESTO
 301605,GYPSOCOMETE LINE 120x2000 mm (LED 18/40 mm),ml,64.18,RESTO
 301600,GYPSOCOMETE ANGLE 240x240 mm (LED 18/40 mm),ud,60.83,RESTO
 301601,GYPSOCOMETE CROSS 360x240 mm (LED 18/40 mm),ud,99.18,RESTO

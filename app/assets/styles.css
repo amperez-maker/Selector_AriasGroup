@@ -13,6 +13,7 @@
 --tap-target:3rem;
 }
 
+<<<<<<< HEAD
 /* Marca */
 .brand{
   display:flex;
@@ -39,6 +40,8 @@
   word-break:break-word;
 }
 
+=======
+>>>>>>> 27bc9f7ce8e3ed7395a2ff3edde12ffbe90de9ab
 /* ---------------------------------------------------------------------
    Estilos para el nuevo Selector Arias
    Estas clases aplican la misma estética minimalista y profesional de la

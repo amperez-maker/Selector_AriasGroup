@@ -7,6 +7,13 @@
         {
           "id": "AG_COREWALL",
           "nombre": "AG CoreWall\u2122",
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 27bc9f7ce8e3ed7395a2ff3edde12ffbe90de9ab
+>>>>>>> b476c01a17bc2111d2080ffe0e41eb6f7efd8821
           "descripcion": "Tabique interior estándar (1 placa por cara)",
           "allowedSystemIds": [
             "M-70-13-1",
@@ -23,6 +30,23 @@
             "M-70-13-2",
             "M-70-15-2",
             "M-90-13-2",
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+=======
+          "descripcion": "Tabique interior estándar",
+          "allowedSystemIds": [
+            "M-70-13-1",
+            "M-70-13-2",
+            "M-70-15-1",
+            "M-70-15-2",
+            "M-90-13-1",
+            "M-90-13-2",
+            "M-90-15-1",
+>>>>>>> 694d70be5f8b56ba59e7d14cdcd51714c88ef1b3
+>>>>>>> 27bc9f7ce8e3ed7395a2ff3edde12ffbe90de9ab
+>>>>>>> b476c01a17bc2111d2080ffe0e41eb6f7efd8821
             "M-90-15-2",
             "M-100-13-DBL-2"
           ]
@@ -30,7 +54,19 @@
         {
           "id": "AG_AQUAWALL",
           "nombre": "AG AquaWall\u2122",
+<<<<<<< HEAD
           "descripcion": "Tabique interior zonas húmedas",
+=======
+<<<<<<< HEAD
+          "descripcion": "Tabique interior zonas húmedas",
+=======
+<<<<<<< HEAD
+          "descripcion": "Tabique interior zonas húmedas",
+=======
+          "descripcion": "Tabique interior zona húmeda",
+>>>>>>> 694d70be5f8b56ba59e7d14cdcd51714c88ef1b3
+>>>>>>> 27bc9f7ce8e3ed7395a2ff3edde12ffbe90de9ab
+>>>>>>> b476c01a17bc2111d2080ffe0e41eb6f7efd8821
           "allowedSystemIds": [
             "M-70-13-AQUA-1",
             "M-70-13-AQUA-2",
@@ -53,6 +89,13 @@
         {
           "id": "AG_COREWALL_TRAS",
           "nombre": "AG CoreWall Tras\u2122",
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 27bc9f7ce8e3ed7395a2ff3edde12ffbe90de9ab
+>>>>>>> b476c01a17bc2111d2080ffe0e41eb6f7efd8821
           "descripcion": "Trasdosado estándar (1 placa por cara)",
           "allowedSystemIds": [
             "TA-70-13-1",
@@ -70,18 +113,61 @@
           "allowedSystemIds": [
             "TA-70-13-2",
             "TA-90-13-2"
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+=======
+          "descripcion": "Trasdosado estándar",
+          "allowedSystemIds": [
+            "TA-70-13-1",
+            "TA-70-13-2",
+            "TA-70-15-1",
+            "TA-90-13-1",
+            "TA-90-13-2",
+            "TA-90-15-1",
+            "TS-35-13-STD-1"
+>>>>>>> 694d70be5f8b56ba59e7d14cdcd51714c88ef1b3
+>>>>>>> 27bc9f7ce8e3ed7395a2ff3edde12ffbe90de9ab
+>>>>>>> b476c01a17bc2111d2080ffe0e41eb6f7efd8821
           ]
         },
         {
           "id": "AG_AQUAWALL_TRAS",
           "nombre": "AG AquaWall Tras\u2122",
+<<<<<<< HEAD
           "descripcion": "Trasdosado zonas húmedas",
+=======
+<<<<<<< HEAD
+          "descripcion": "Trasdosado zonas húmedas",
+=======
+<<<<<<< HEAD
+          "descripcion": "Trasdosado zonas húmedas",
+=======
+          "descripcion": "Trasdosado zona húmeda",
+>>>>>>> 694d70be5f8b56ba59e7d14cdcd51714c88ef1b3
+>>>>>>> 27bc9f7ce8e3ed7395a2ff3edde12ffbe90de9ab
+>>>>>>> b476c01a17bc2111d2080ffe0e41eb6f7efd8821
           "allowedSystemIds": [
             "TA-70-13-AQUA-2",
             "TA-90-13-AQUA-1",
             "TA-90-13-AQUA-2",
+<<<<<<< HEAD
             "TS-35-13-AQUA-1",
             "TS-OMEGA35-13-AQUA-1"
+=======
+<<<<<<< HEAD
+            "TS-35-13-AQUA-1",
+            "TS-OMEGA35-13-AQUA-1"
+=======
+<<<<<<< HEAD
+            "TS-35-13-AQUA-1",
+            "TS-OMEGA35-13-AQUA-1"
+=======
+            "TS-35-13-AQUA-1"
+>>>>>>> 694d70be5f8b56ba59e7d14cdcd51714c88ef1b3
+>>>>>>> 27bc9f7ce8e3ed7395a2ff3edde12ffbe90de9ab
+>>>>>>> b476c01a17bc2111d2080ffe0e41eb6f7efd8821
           ]
         }
       ]

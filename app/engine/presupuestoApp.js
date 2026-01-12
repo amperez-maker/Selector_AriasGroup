@@ -18,8 +18,12 @@ maximumFractionDigits: 2
 // Mantener EUR para compatibilidad temporal (deprecated)
 const EUR = n => fmtEUR(n);
 // Logo corporativo (usar PNG oficial con “arias”)
+<<<<<<< HEAD
 // Logo corporativo (versión recortada/apaisada para PDF y cabecera)
 const LOGO_URL = './assets/logo-arias-wide.png';
+=======
+const LOGO_URL = './assets/logo-arias.png';
+>>>>>>> b476c01a17bc2111d2080ffe0e41eb6f7efd8821
 // Schema adapter: compatibilidad v1/v2
 function normalizeSystemToV1(sys) {
 if (sys.capas !== undefined && sys.placa !== undefined && typeof sys.placa === 'string') {
@@ -849,6 +853,7 @@ const total = proyecto.reduce((t,p)=>t+(p.precioVentaSistema || 0),0);
 
 const logoData = await loadImageDataURL(LOGO_URL);
 if (logoData) {
+<<<<<<< HEAD
   // Mantener proporción (logo apaisado). Evita que se "aplasten" las letras.
   doc.addImage(logoData, 'PNG', 14, 10, 55, 27);
 }
@@ -860,6 +865,19 @@ doc.setTextColor('#666');
 doc.text(`Proyecto: ${projectName}`, 14, logoData ? 56 : 32);
 doc.text(`Fecha: ${date}`, 14, logoData ? 62 : 38);
 let y = logoData ? 76 : 48;
+=======
+  // Logo horizontal oficial (mejor legibilidad)
+  doc.addImage(logoData, 'PNG', 14, 10, 70, 18);
+}
+doc.setFontSize(20);
+doc.setTextColor('#1050B0');
+doc.text('Presupuesto', 14, logoData ? 28 : 22);
+doc.setFontSize(11);
+doc.setTextColor('#666');
+doc.text(`Proyecto: ${projectName}`, 14, logoData ? 34 : 32);
+doc.text(`Fecha: ${date}`, 14, logoData ? 40 : 38);
+let y = logoData ? 54 : 48;
+>>>>>>> b476c01a17bc2111d2080ffe0e41eb6f7efd8821
 const resumenData = [];
 proyecto.forEach((p, idx) => {
 if(y > 240) { doc.addPage(); y = 20; }
@@ -921,10 +939,14 @@ y += alturaFila + 2;
 });
 y += 3; doc.setDrawColor(200, 200, 200); doc.setLineWidth(0.5); doc.line(14, y, 196, y); y += 6;
 doc.setFontSize(12); doc.setFont(undefined, 'bold'); doc.setTextColor('#1050B0');
+<<<<<<< HEAD
 // Evitar solapes: etiqueta a la izquierda, total alineado a la derecha
 doc.text('TOTAL PROYECTO:', 14, y);
 doc.text(fmtEUR(total), 196, y, { align: 'right' });
 y += 12;
+=======
+doc.text('TOTAL PROYECTO:', 120, y); doc.text(fmtEUR(total), 155, y); y += 12;
+>>>>>>> b476c01a17bc2111d2080ffe0e41eb6f7efd8821
 let notaLegal = '';
 const primerIncoterm = resumenData[0]?.incoterm || 'CIF';
 if (primerIncoterm === 'EXW') notaLegal = '** Precio EXW. No incluye transporte ni impuestos.';

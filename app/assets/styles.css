@@ -13,6 +13,10 @@
 --tap-target:3rem;
 }
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> b476c01a17bc2111d2080ffe0e41eb6f7efd8821
 /* Marca */
 .brand{
   display:flex;
@@ -25,6 +29,7 @@
   display:block;
 }
 
+<<<<<<< HEAD
 /* Logo reutilizable (cabecera, portada, etc.) */
 .brand-logo{
   height:32px;
@@ -37,6 +42,8 @@
   .brand img, .brand-logo{ height:26px; }
 }
 
+=======
+>>>>>>> b476c01a17bc2111d2080ffe0e41eb6f7efd8821
 /* Resumen: evita solapes en pantallas pequeñas */
 .summary-grid{
   display:grid;
@@ -51,6 +58,11 @@
   word-break:break-word;
 }
 
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> 27bc9f7ce8e3ed7395a2ff3edde12ffbe90de9ab
+>>>>>>> b476c01a17bc2111d2080ffe0e41eb6f7efd8821
 /* ---------------------------------------------------------------------
    Estilos para el nuevo Selector Arias
    Estas clases aplican la misma estética minimalista y profesional de la

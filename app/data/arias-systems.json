@@ -1,0 +1,129 @@
+{
+  "familias": [
+    {
+      "id": "muros_interiores",
+      "nombre": "Muros interiores",
+      "sistemas": [
+        {
+          "id": "AG_COREWALL",
+          "nombre": "AG CoreWall\u2122",
+          "descripcion": "Tabique interior estándar (1 placa por cara)",
+          "allowedSystemIds": [
+            "M-70-13-1",
+            "M-70-15-1",
+            "M-90-13-1",
+            "M-90-15-1"
+          ]
+        },
+        {
+          "id": "AG_SILENTWALL",
+          "nombre": "AG SilentWall\u2122",
+          "descripcion": "Tabique interior acústico (2 placas por cara)",
+          "allowedSystemIds": [
+            "M-70-13-2",
+            "M-70-15-2",
+            "M-90-13-2",
+            "M-90-15-2",
+            "M-100-13-DBL-2"
+          ]
+        },
+        {
+          "id": "AG_AQUAWALL",
+          "nombre": "AG AquaWall\u2122",
+          "descripcion": "Tabique interior zonas húmedas",
+          "allowedSystemIds": [
+            "M-70-13-AQUA-1",
+            "M-70-13-AQUA-2",
+            "M-70-15-AQUA-1",
+            "M-70-15-AQUA-2",
+            "M-90-13-AQUA-1",
+            "M-90-13-AQUA-2",
+            "M-90-15-AQUA-1",
+            "M-90-15-AQUA-2",
+            "M-70-13-AQSTD-2",
+            "M-100-13-AQSTD-DBL-2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "trasdosados",
+      "nombre": "Trasdosados",
+      "sistemas": [
+        {
+          "id": "AG_COREWALL_TRAS",
+          "nombre": "AG CoreWall Tras\u2122",
+          "descripcion": "Trasdosado estándar (1 placa por cara)",
+          "allowedSystemIds": [
+            "TA-70-13-1",
+            "TA-70-15-1",
+            "TA-90-13-1",
+            "TA-90-15-1",
+            "TS-35-13-STD-1",
+            "TS-OMEGA35-13-STD-1"
+          ]
+        },
+        {
+          "id": "AG_SILENTWALL_TRAS",
+          "nombre": "AG SilentWall Tras\u2122",
+          "descripcion": "Trasdosado acústico (2 placas por cara)",
+          "allowedSystemIds": [
+            "TA-70-13-2",
+            "TA-90-13-2"
+          ]
+        },
+        {
+          "id": "AG_AQUAWALL_TRAS",
+          "nombre": "AG AquaWall Tras\u2122",
+          "descripcion": "Trasdosado zonas húmedas",
+          "allowedSystemIds": [
+            "TA-70-13-AQUA-2",
+            "TA-90-13-AQUA-1",
+            "TA-90-13-AQUA-2",
+            "TS-35-13-AQUA-1",
+            "TS-OMEGA35-13-AQUA-1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "techos_continuos",
+      "nombre": "Techos continuos",
+      "sistemas": [
+        {
+          "id": "AG_CEILING_STD",
+          "nombre": "AG Ceiling\u2122 STD",
+          "descripcion": "Techo continuo estándar",
+          "allowedSystemIds": [
+            "T-TC47-13-1",
+            "T-TC60-13-1"
+          ]
+        },
+        {
+          "id": "AG_CEILING_AQUA",
+          "nombre": "AG Ceiling\u2122 Aqua",
+          "descripcion": "Techo continuo zona húmeda",
+          "allowedSystemIds": [
+            "T-TC47-13-AQUA-1",
+            "T-TC60-13-AQUA-1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fachadas_ligeras",
+      "nombre": "Fachadas ligeras",
+      "sistemas": [
+        {
+          "id": "AG_EXTERNALLIGHT",
+          "nombre": "AG Externa Light\u2122",
+          "descripcion": "Fachada ligera exterior",
+          "allowedSystemIds": [
+            "EL-70-13-1",
+            "EL-90-13-1"
+          ]
+        }
+      ]
+    }
+  ]
+}

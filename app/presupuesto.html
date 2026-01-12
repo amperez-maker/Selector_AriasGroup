@@ -24,7 +24,10 @@
 <body>
 <header class="header">
 <i class="fas fa-project-diagram" aria-hidden="true"></i>
-<div class="logo">AriasGroupCaribe SRL</div>
+<div class="brand">
+  <img src="./assets/logo-arias.png" alt="Arias Group" />
+  <div class="logo">Arias Group</div>
+</div>
 <a class="back" href="../index.html" aria-label="Volver al inicio"><i class="fas fa-arrow-left" aria-hidden="true"></i> <span>Volver</span></a>
 </header>
 <div class="container">
@@ -143,13 +146,13 @@ Margen %
 </div>
 <div id="resumenSistema" style="margin-top: 1rem; padding: 1rem; background: #e8f4f8; border-radius: 4px; display: none;">
 <h4 style="margin-top: 0;">Resumen del Sistema</h4>
-<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.5rem;">
+<div class="summary-grid">
 <div><strong>Coste neto:</strong> <span id="resumenCosteNeto">—</span></div>
 <div><strong>Logística:</strong> <span id="resumenLogistica">—</span></div>
 <div><strong>Coste total:</strong> <span id="resumenCosteTotal">—</span></div>
 <div><strong>Margen:</strong> <span id="resumenMargen">—</span></div>
 <div><strong>Precio <span id="resumenIncotermLabel">CIF</span> /m²:</strong> <span id="resumenVentaM2">—</span></div>
-<div><strong>Total sistema:</strong> <span id="resumenTotal" style="font-size: 1.1em; font-weight: bold; color: #e74c3c;">—</span></div>
+<div><strong>Total sistema:</strong> <span id="resumenTotal" class="summary-total">—</span></div>
 </div>
 </div>
 <div class="table-wrapper">
@@ -190,7 +193,7 @@ Margen %
 <div class="card">
 <h3>Exportar</h3>
 <div class="actions">
-<button id="pdfBtn" class="btn-icon-only" style="background:#e74c3c"><i class="fas fa-file-pdf" aria-hidden="true"></i> <span class="btn-label">PDF (Cliente)</span></button>
+<button id="pdfBtn" class="btn-icon-only" style="background:#1050B0"><i class="fas fa-file-pdf" aria-hidden="true"></i> <span class="btn-label">PDF (Cliente)</span></button>
 <button id="excelBtn" class="btn-icon-only" style="background:#27ae60"><i class="fas fa-file-excel" aria-hidden="true"></i> <span class="btn-label">Excel (Control Interno)</span></button>
 </div>
 <div class="muted">

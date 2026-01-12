@@ -10,6 +10,64 @@
 --space-xl:2rem;
 --tap-target:3rem;
 }
+
+/* ---------------------------------------------------------------------
+   Estilos para el nuevo Selector Arias
+   Estas clases aplican la misma estética minimalista y profesional de la
+   aplicación al componente v2 (Familia → Sistema → Variante).
+   --------------------------------------------------------------------- */
+.ag-card{
+  background:#fff;
+  border-radius:0.75rem;
+  box-shadow:0 2px 8px rgba(0,0,0,.08);
+  padding:var(--space-md);
+  margin-bottom:var(--space-md);
+}
+.ag-card h2{
+  margin-top:0;
+  margin-bottom:var(--space-sm);
+  font-size:1.25rem;
+  font-weight:700;
+  color:var(--gris);
+  border-bottom:2px solid var(--rojo);
+  padding-bottom:var(--space-xs);
+}
+.ag-card p.muted{
+  font-size:0.875rem;
+  color:#7f8c8d;
+  margin-top:0;
+  margin-bottom:var(--space-md);
+}
+.ag-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(180px,1fr));
+  gap:var(--space-md);
+}
+.ag-grid label{
+  display:flex;
+  flex-direction:column;
+  gap:var(--space-xs);
+  font-size:0.875rem;
+  color:var(--gris);
+}
+.ag-actions{
+  display:flex;
+  flex-direction:row;
+  gap:var(--space-sm);
+  margin-top:var(--space-md);
+}
+.ag-actions button{
+  flex:1 1 auto;
+}
+.ag-actions button.primary{
+  background:var(--rojo);
+  color:#fff;
+}
+.ag-actions button.ghost{
+  background:#fff;
+  color:var(--gris);
+  border:2px solid var(--gris);
+}
 *{box-sizing:border-box}
 body{
 font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;

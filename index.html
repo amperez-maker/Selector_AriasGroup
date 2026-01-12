@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>AriasGroupCaribe SRL – Presupuesto FassaBortolo</title>
+  <style>
+    :root{--rojo:#1050B0;--gris:#303030;--light:#f5f7fb}
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;margin:0;background:linear-gradient(135deg,var(--gris) 0%,#111 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;color:#fff}
+    .card{background:#fff;border-radius:16px;box-shadow:0 12px 40px rgba(0,0,0,.25);padding:56px 64px;text-align:center;max-width:460px;width:90%}
+    .brand{display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:6px}
+    .brand img{height:42px;width:auto;display:block}
+    .logo{font-size:2.2rem;font-weight:800;color:var(--gris);letter-spacing:-0.5px}
+    .byline{font-size:1.1rem;font-weight:600;margin-bottom:8px;color:var(--gris)}
+    .tagline{font-size:0.95rem;color:#7f8c8d;margin-bottom:40px}
+    .btn{display:inline-block;padding:16px 32px;border:0;border-radius:10px;background:var(--rojo);color:#fff;font-size:1.05rem;font-weight:600;text-decoration:none;transition:.25s}
+    .btn:hover{background:#0B66D6}
+    footer{margin-top:32px;font-size:.75rem;color:#95a5a6}
+    
+    /* Responsive - Móvil */
+    @media (max-width: 768px) {
+      body{min-height:100vh;padding:20px}
+      .card{padding:32px 24px;max-width:100%}
+      .logo{font-size:2rem}
+      .byline{font-size:1rem}
+      .tagline{font-size:.85rem;margin-bottom:32px}
+      .btn{padding:14px 28px;font-size:1rem;width:100%}
+      footer{font-size:.7rem;margin-top:24px}
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="brand">
+      <img src="app/assets/logo-arias-wide.png" alt="Arias Group" class="brand-logo" />
+      <div class="logo">Arias Group</div>
+    </div>
+    <div class="byline">Selector de Sistemas · Prescripción + Presupuesto</div>
+    <div class="tagline">Herramienta interna (Gypsotech / Fassa)</div>
+    <a class="btn" href="app/presupuesto.html">Generar Presupuesto</a>
+  </div>
+  <footer>© 2025 AriasGroupCaribe SRL – Herramienta interna para profesionales</footer>
+</body>
+</html>

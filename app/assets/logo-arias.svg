@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     viewBox="0 0 800 200"
+     width="800" height="200">
+  <!-- fondo transparente – vectores puros -->
+  <text x="20" y="110"
+        font-family="Arial, sans-serif"
+        font-size="90"
+        font-weight="900"
+        fill="#e74c3c">ARIAS</text>
+  <text x="20" y="160"
+        font-family="Arial, sans-serif"
+        font-size="38"
+        font-weight="300"
+        fill="#2c3e50">GROUP Caribe SRL</text>
+</svg>
+

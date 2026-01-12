@@ -1,0 +1,476 @@
+:root{
+/* Colores corporativos Arias Group (extraídos del logo) */
+--rojo:#1050B0; /* se mantiene el nombre por compatibilidad: es nuestro color primario */
+--gris:#303030;
+--light:#f5f7fb;
+--azul-2:#0B66D6;
+--font-base:16px;
+--space-xs:0.5rem;
+--space-sm:0.75rem;
+--space-md:1rem;
+--space-lg:1.5rem;
+--space-xl:2rem;
+--tap-target:3rem;
+}
+
+/* Marca */
+.brand{
+  display:flex;
+  align-items:center;
+  gap:0.75rem;
+}
+.brand img{
+  height:32px;
+  width:auto;
+  display:block;
+}
+
+/* Logo reutilizable (cabecera, portada, etc.) */
+.brand-logo{
+  height:32px;
+  width:auto;
+  display:block;
+  object-fit:contain;
+}
+
+@media (max-width:480px){
+  .brand img, .brand-logo{ height:26px; }
+}
+
+/* Resumen: evita solapes en pantallas pequeñas */
+.summary-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+  gap:0.75rem;
+}
+.summary-total{
+  font-size:1.35rem;
+  font-weight:800;
+  color:var(--rojo);
+  line-height:1.2;
+  word-break:break-word;
+}
+
+/* ---------------------------------------------------------------------
+   Estilos para el nuevo Selector Arias
+   Estas clases aplican la misma estética minimalista y profesional de la
+   aplicación al componente v2 (Familia → Sistema → Variante).
+   --------------------------------------------------------------------- */
+.ag-card{
+  background:#fff;
+  border-radius:0.75rem;
+  box-shadow:0 2px 8px rgba(0,0,0,.08);
+  padding:var(--space-md);
+  margin-bottom:var(--space-md);
+}
+.ag-card h2{
+  margin-top:0;
+  margin-bottom:var(--space-sm);
+  font-size:1.25rem;
+  font-weight:700;
+  color:var(--gris);
+  border-bottom:2px solid var(--rojo);
+  padding-bottom:var(--space-xs);
+}
+.ag-card p.muted{
+  font-size:0.875rem;
+  color:#7f8c8d;
+  margin-top:0;
+  margin-bottom:var(--space-md);
+}
+.ag-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(180px,1fr));
+  gap:var(--space-md);
+}
+.ag-grid label{
+  display:flex;
+  flex-direction:column;
+  gap:var(--space-xs);
+  font-size:0.875rem;
+  color:var(--gris);
+}
+.ag-actions{
+  display:flex;
+  flex-direction:row;
+  gap:var(--space-sm);
+  margin-top:var(--space-md);
+}
+.ag-actions button{
+  flex:1 1 auto;
+}
+.ag-actions button.primary{
+  background:var(--rojo);
+  color:#fff;
+}
+.ag-actions button.ghost{
+  background:#fff;
+  color:var(--gris);
+  border:2px solid var(--gris);
+}
+*{box-sizing:border-box}
+body{
+font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+margin:0;
+background:var(--light);
+color:#333;
+font-size:var(--font-base);
+line-height:1.5;
+-webkit-font-smoothing:antialiased;
+-moz-osx-font-smoothing:grayscale;
+}
+.header{
+background:var(--gris);
+color:#fff;
+padding:var(--space-sm) var(--space-md);
+display:flex;
+align-items:center;
+gap:var(--space-sm);
+position:sticky;
+top:0;
+z-index:100;
+box-shadow:0 2px 4px rgba(0,0,0,.1);
+}
+.header .logo{
+font-size:1.125rem;
+font-weight:800;
+color:var(--rojo);
+flex:1;
+min-width:0;
+}
+.header .back{
+color:#fff;
+text-decoration:none;
+display:flex;
+align-items:center;
+gap:var(--space-xs);
+padding:var(--space-xs);
+min-height:var(--tap-target);
+min-width:var(--tap-target);
+justify-content:center;
+border-radius:0.5rem;
+transition:background-color 0.2s;
+}
+.header .back:active{background-color:rgba(255,255,255,.1)}
+.container{
+max-width:75rem;
+margin:0 auto;
+padding:var(--space-md);
+}
+.card{
+background:#fff;
+border-radius:0.75rem;
+box-shadow:0 2px 8px rgba(0,0,0,.08);
+padding:var(--space-md);
+margin-bottom:var(--space-md);
+}
+h3{
+margin:0 0 var(--space-md) 0;
+color:var(--gris);
+border-bottom:2px solid var(--rojo);
+padding-bottom:var(--space-xs);
+font-size:1.125rem;
+font-weight:700;
+}
+.row{
+display:flex;
+flex-direction:column;
+gap:var(--space-md);
+}
+label{
+display:flex;
+flex-direction:column;
+gap:var(--space-xs);
+font-size:0.875rem;
+width:100%;
+}
+input[type="text"],
+input[type="number"],
+select{
+width:100%;
+max-width:100%;
+padding:var(--space-md);
+font-size:var(--font-base);
+border:1px solid #ccc;
+border-radius:0.5rem;
+background:#fff;
+min-height:var(--tap-target);
+-webkit-appearance:none;
+appearance:none;
+}
+input:focus,select:focus{
+outline:2px solid var(--rojo);
+outline-offset:2px;
+border-color:var(--rojo);
+}
+select{
+background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23333' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+background-repeat:no-repeat;
+background-position:right 1rem center;
+padding-right:2.5rem;
+word-break:break-word;
+}
+select option{word-break:break-word}
+button{
+width:100%;
+padding:var(--space-md);
+border:0;
+border-radius:0.5rem;
+background:var(--rojo);
+color:#fff;
+font-size:var(--font-base);
+font-weight:600;
+cursor:pointer;
+min-height:var(--tap-target);
+display:flex;
+align-items:center;
+justify-content:center;
+gap:var(--space-xs);
+transition:background-color 0.2s,transform 0.1s;
+position:relative;
+overflow:hidden;
+}
+button:active{
+background:#c0392b;
+transform:scale(0.98);
+}
+button:active::after{
+content:'';
+position:absolute;
+top:50%;
+left:50%;
+width:0;
+height:0;
+border-radius:50%;
+background:rgba(255,255,255,.3);
+transform:translate(-50%,-50%);
+animation:ripple 0.4s ease-out;
+}
+@keyframes ripple{
+to{width:200px;height:200px;opacity:0}
+}
+.meta{
+display:flex;
+flex-wrap:wrap;
+gap:var(--space-sm);
+margin-top:var(--space-md);
+}
+.meta .item{
+background:var(--light);
+border-radius:0.5rem;
+padding:var(--space-xs) var(--space-sm);
+font-size:0.8125rem;
+color:#555;
+}
+.table-wrapper{
+overflow-x:auto;
+margin-top:var(--space-md);
+-webkit-overflow-scrolling:touch;
+scrollbar-width:thin;
+}
+.table-wrapper::-webkit-scrollbar{
+height:0.5rem;
+}
+.table-wrapper::-webkit-scrollbar-thumb{
+background:#ccc;
+border-radius:0.25rem;
+}
+table{
+width:100%;
+border-collapse:collapse;
+font-size:0.875rem;
+min-width:600px;
+}
+th,td{
+border-bottom:1px solid #eee;
+padding:var(--space-sm) var(--space-xs);
+text-align:left;
+white-space:nowrap;
+}
+.materials-table th:first-child,
+.materials-table td:first-child{min-width:220px;}
+.materials-table tbody tr:nth-child(even){background:#fafafa}
+.materials-table tbody tr:nth-child(odd){background:#fcfcff}
+.materials-table tbody tr:hover{background:#f2f6ff}
+@media(max-width:900px){
+.materials-table{min-width:0;border-collapse:separate;border-spacing:0 var(--space-xs);}
+.materials-table thead{display:none;}
+.materials-table tr{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-xs);padding:var(--space-sm);border:1px solid #e0e7ff;border-radius:0.5rem;background:#fff;}
+.materials-table td{border:0;white-space:normal;padding:var(--space-xs) var(--space-sm);}
+.materials-table td::before{content:attr(data-label);display:block;font-size:0.75rem;font-weight:700;color:#6c7a89;margin-bottom:2px;}
+.materials-table td:last-child{grid-column:1/-1;text-align:right;font-weight:700;color:#c0392b;}
+}
+th{
+font-size:0.75rem;
+text-transform:uppercase;
+letter-spacing:0.05em;
+color:#666;
+font-weight:600;
+background:#f8f9fa;
+position:sticky;
+top:0;
+z-index:1;
+}
+.num{
+font-variant-numeric:tabular-nums;
+text-align:right;
+}
+.totals{
+background:var(--gris);
+color:#fff;
+border-radius:0.5rem;
+padding:var(--space-md);
+margin-top:var(--space-md);
+display:flex;
+flex-direction:column;
+gap:var(--space-sm);
+text-align:center;
+position:sticky;
+bottom:0;
+z-index:10;
+box-shadow:0 -2px 8px rgba(0,0,0,.1);
+}
+.totals .lbl{
+font-size:0.75rem;
+opacity:.9;
+}
+.totals .lbl, .totals .val{
+  display:block;
+}
+.totals .val{
+font-size:1.5rem;
+font-weight:700;
+}
+.actions{
+margin-top:var(--space-md);
+display:flex;
+flex-direction:column;
+gap:var(--space-sm);
+}
+.actions button{
+width:100%;
+}
+.btn-icon-only .btn-label{
+display:none;
+}
+.btn-small{
+padding:var(--space-xs);
+font-size:0.75rem;
+min-height:2.5rem;
+min-width:2.5rem;
+width:auto;
+}
+.muted{
+color:#7f8c8d;
+font-size:0.75rem;
+margin-top:var(--space-sm);
+line-height:1.6;
+}
+#projTable th{
+background:var(--rojo);
+color:#fff;
+}
+#fileInput{display:none}
+.step-container{
+padding:var(--space-xs);
+border-radius:0.5rem;
+transition:all 0.3s ease;
+}
+.step-container label{
+margin:0;
+}
+select:disabled{
+background-color:#f5f5f5;
+color:#999;
+cursor:not-allowed;
+opacity:0.6;
+}
+select:not(:disabled){
+background-color:#fff;
+color:#333;
+cursor:pointer;
+border:2px solid #dee2e6;
+}
+select:not(:disabled):focus{
+border-color:var(--rojo);
+}
+@media (min-width:48rem){
+.container{padding:var(--space-lg)}
+.card{padding:var(--space-lg);margin-bottom:var(--space-lg)}
+.header{padding:var(--space-md) var(--space-lg)}
+.header .logo{font-size:1.375rem}
+h3{font-size:1.25rem;margin-bottom:var(--space-lg)}
+.row{
+flex-direction:row;
+flex-wrap:wrap;
+gap:var(--space-md);
+align-items:flex-end;
+}
+#selectionFlow .row{
+flex-direction:row;
+flex-wrap:nowrap;
+gap:var(--space-sm);
+}
+#selectionFlow .step-container{
+flex:1 1 auto;
+min-width:140px;
+}
+label{
+flex:1 1 auto;
+min-width:0;
+}
+input[type="text"],
+input[type="number"],
+select{
+max-width:7.5rem;
+}
+#selectionFlow select{
+max-width:100%;
+}
+label[style*="flex:1 1 100%"] input{
+max-width:100%;
+}
+button{
+width:auto;
+padding:var(--space-sm) var(--space-md);
+min-width:auto;
+}
+.meta{gap:var(--space-md)}
+.meta .item{font-size:0.875rem;padding:var(--space-xs) var(--space-sm)}
+table{font-size:0.9375rem;min-width:auto}
+th,td{padding:var(--space-sm) var(--space-xs)}
+th{font-size:0.8125rem}
+.totals{
+flex-direction:row;
+gap:var(--space-xl);
+text-align:left;
+position:relative;
+box-shadow:none;
+}
+.totals .val{font-size:1.3125rem}
+.actions{
+flex-direction:row;
+gap:var(--space-md);
+}
+.actions button{width:auto;flex:1}
+.btn-icon-only .btn-label{display:inline}
+.muted{text-align:left}
+}
+@media (min-width:64rem){
+.container{max-width:75rem}
+.card{padding:var(--space-xl)}
+h3{font-size:1.5rem}
+.row{gap:var(--space-lg)}
+label{flex:1 1 220px}
+input[type="text"],
+input[type="number"],
+select{max-width:7.5rem}
+table{font-size:0.9375rem}
+}
+
+/* Totales: evita que etiqueta y valor se peguen */
+.totals > div{display:flex;flex-direction:column;gap:0.25rem;min-width:0;}
+@media (min-width:48rem){
+  .totals{justify-content:space-between;align-items:center;}
+  .totals > div{flex:1;}
+}

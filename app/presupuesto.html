@@ -1,0 +1,216 @@
+<script>
+  // opcional: ocultar legacy al inicio
+  window.addEventListener("DOMContentLoaded", () => {
+    const legacy = document.querySelector("#legacy-root");
+    if (legacy) legacy.style.display = "none";
+  });
+</script>
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5,user-scalable=yes" />
+<meta name="theme-color" content="#2c3e50" />
+<title>Proyecto – AriasGroupCaribe SRL</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="./assets/styles.css" />
+</head>
+<div id="arias-root"></div>
+
+<!-- envuelve el selector actual en un contenedor -->
+<div id="legacy-root">
+  <!-- TODO: aquí queda tu UI actual tal cual -->
+</div>
+<body>
+<header class="header">
+<i class="fas fa-project-diagram" aria-hidden="true"></i>
+<div class="brand">
+<<<<<<< HEAD
+  <img src="./assets/logo-arias-wide.png" alt="Arias Group" class="brand-logo" />
+=======
+  <img src="./assets/logo-arias.png" alt="Arias Group" />
+>>>>>>> b476c01a17bc2111d2080ffe0e41eb6f7efd8821
+  <div class="logo">Arias Group</div>
+</div>
+<a class="back" href="../index.html" aria-label="Volver al inicio"><i class="fas fa-arrow-left" aria-hidden="true"></i> <span>Volver</span></a>
+</header>
+<div class="container">
+<div class="card">
+<h3>Proyecto</h3>
+<div class="row">
+<label style="flex:1 1 100%">
+Nombre del Proyecto
+<input id="projectName" type="text" placeholder="Ej: Edificio Residencial Calle Mayor" />
+</label>
+</div>
+</div>
+<div class="card">
+<h3>Añadir Sistema al Proyecto</h3>
+<!-- Flujo de selección por criterios -->
+<div id="selectionFlow" style="margin-bottom: 1rem;">
+<div class="row" style="flex-direction: row; flex-wrap: wrap; gap: var(--space-sm); align-items: flex-end;">
+<!-- Paso 1: Ambiente -->
+<div id="step1" class="step-container" style="display: block; flex: 1 1 auto; min-width: 120px;">
+<label>
+<span style="font-weight: 600; color: #2c3e50; font-size: 0.875rem;">1. Ambiente</span>
+<select id="selectAmbiente">
+<option value="">Seleccionar...</option>
+<option value="seco">seco</option>
+<option value="humedo">humedo</option>
+<option value="semi-intemperie">semi-intemperie</option>
+</select>
+</label>
+</div>
+<!-- Paso 2: Elemento -->
+<div id="step2" class="step-container" style="display: block; flex: 1 1 auto; min-width: 140px;">
+<label>
+<span style="font-weight: 600; color: #2c3e50; font-size: 0.875rem;">2. Elemento</span>
+<select id="selectElemento" disabled>
+<option value="">Primero Ambiente</option>
+<option value="MURO">muro</option>
+<option value="TRASDOSADO">trasdosado</option>
+<option value="TECHO">techo</option>
+</select>
+</label>
+</div>
+<!-- Paso 3: Placa -->
+<div id="step3" class="step-container" style="display: block; flex: 1 1 auto; min-width: 140px;">
+<label>
+<span style="font-weight: 600; color: #2c3e50; font-size: 0.875rem;">3. Tipo de Placa</span>
+<select id="selectPlaca" disabled>
+<option value="">Primero Elemento</option>
+</select>
+</label>
+</div>
+<!-- Paso 4: Estructura/Perfilería -->
+<div id="step4" class="step-container" style="display: block; flex: 1 1 auto; min-width: 180px;">
+<label>
+<span style="font-weight: 600; color: #2c3e50; font-size: 0.875rem;">4. Estructura/Perfilería</span>
+<select id="selectEstructura" disabled>
+<option value="">Primero Placa</option>
+</select>
+</label>
+</div>
+<!-- Paso 5: Capas -->
+<div id="step5" class="step-container" style="display: block; flex: 1 1 auto; min-width: 120px;">
+<label>
+<span style="font-weight: 600; color: #2c3e50; font-size: 0.875rem;">5. Capas</span>
+<select id="selectCapas" disabled>
+<option value="">Primero Estructura</option>
+</select>
+</label>
+</div>
+</div>
+<!-- Resultado: Sistemas encontrados -->
+<div id="stepResult" class="step-container" style="display: none; margin-top: 1rem; padding: 1rem; background: #f8f9fa; border-radius: 4px;">
+<div id="resultadoContainer">
+<!-- Se llena dinámicamente -->
+</div>
+</div>
+</div>
+<!-- Campos de entrada -->
+<div class="row" style="margin-top: 1rem;">
+<label>
+m² (superficie)
+<input id="area" type="number" step="0.01" value="100" />
+</label>
+<label>
+Desperdicio %
+<input id="waste" type="number" step="0.1" value="5" />
+</label>
+<button id="addBtn"><i class="fas fa-plus" aria-hidden="true"></i> Añadir</button>
+</div>
+<div class="row" style="border-top: 1px solid #eee; padding-top: 1rem; margin-top: 1rem; background: #f8f9fa; padding: 1rem; border-radius: 4px;">
+<label>
+Incoterm
+<select id="incoterm">
+<option value="EXW">EXW</option>
+<option value="FOB">FOB</option>
+<option value="CIF" selected>CIF</option>
+</select>
+</label>
+<label>
+Logística %
+<input id="logisticaPct" type="number" step="0.1" value="12" />
+</label>
+<label>
+Margen %
+<input id="margenPct" type="number" step="0.1" value="30" />
+</label>
+</div>
+<!-- Información del sistema (read-only) -->
+<div id="fichaTecnica" style="margin-top: 1.5rem; padding: 1rem; background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 4px; display: none;">
+<h4 style="margin-top: 0; margin-bottom: 0.75rem; color: #2c3e50; font-size: 1rem;">Información del sistema</h4>
+<div id="fichaTecnicaContent" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.5rem; font-size: 0.875rem; color: #495057;"></div>
+</div>
+<!-- Descripción del sistema -->
+<div id="descripcionTecnica" style="margin-top: 1rem; padding: 1rem; background: #fff; border-left: 3px solid #3498db; display: none;">
+<h4 style="margin-top: 0; margin-bottom: 0.5rem; color: #2c3e50; font-size: 0.95rem;">Descripción del sistema</h4>
+<div id="descripcionTecnicaContent" style="font-size: 0.875rem; color: #495057; line-height: 1.6;"></div>
+</div>
+<div id="resumenSistema" style="margin-top: 1rem; padding: 1rem; background: #e8f4f8; border-radius: 4px; display: none;">
+<h4 style="margin-top: 0;">Resumen del Sistema</h4>
+<div class="summary-grid">
+<div><strong>Coste neto:</strong> <span id="resumenCosteNeto">—</span></div>
+<div><strong>Logística:</strong> <span id="resumenLogistica">—</span></div>
+<div><strong>Coste total:</strong> <span id="resumenCosteTotal">—</span></div>
+<div><strong>Margen:</strong> <span id="resumenMargen">—</span></div>
+<div><strong>Precio <span id="resumenIncotermLabel">CIF</span> /m²:</strong> <span id="resumenVentaM2">—</span></div>
+<div><strong>Total sistema:</strong> <span id="resumenTotal" class="summary-total">—</span></div>
+</div>
+</div>
+<div class="table-wrapper">
+<table id="tbl" class="materials-table">
+<thead>
+<tr>
+<th title="Descripción del material o servicio">Descripción</th>
+<th title="Código interno o SKU del material">Código / SKU</th>
+<th title="Unidad con la que se comercializa">Unidad de venta</th>
+<th title="Precio de catálogo antes de descuentos">Precio cat. (€)</th>
+<th title="Descuento aplicado al distribuidor">Dto. distrib. %</th>
+<th title="Precio final después del descuento">Precio neto (€)</th>
+<th title="Rendimiento o coeficiente de consumo">Rendimiento (coef.)</th>
+<th title="Cantidad necesaria según el sistema">Cantidad requerida</th>
+<th title="Importe resultante del material">Coste neto (€)</th>
+</tr>
+</thead>
+<tbody></tbody>
+</table>
+</div>
+</div>
+<div class="card">
+<h3>Proyecto Acumulado</h3>
+<div class="table-wrapper">
+<table id="projTable">
+<thead>
+<tr>
+<th>Sistema</th><th>m²</th><th>Precio/m²</th><th>Total €</th><th>Acciones</th>
+</tr>
+</thead>
+<tbody></tbody>
+</table>
+</div>
+<div class="totals">
+<div><div class="lbl">Total Proyecto</div><div class="val" id="projTotal">—</div></div>
+</div>
+</div>
+<div class="card">
+<h3>Exportar</h3>
+<div class="actions">
+<button id="pdfBtn" class="btn-icon-only" style="background:#1050B0"><i class="fas fa-file-pdf" aria-hidden="true"></i> <span class="btn-label">PDF (Cliente)</span></button>
+<button id="excelBtn" class="btn-icon-only" style="background:#27ae60"><i class="fas fa-file-excel" aria-hidden="true"></i> <span class="btn-label">Excel (Control Interno)</span></button>
+</div>
+<div class="muted">
+<strong>PDF:</strong> Resumen para cliente (sistemas, materiales, rendimiento, precio/m², total)<br>
+<strong>Excel:</strong> Desglose completo para control interno
+</div>
+</div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+<script type="module" src="./main.js"></script>
+</body>
+</html>

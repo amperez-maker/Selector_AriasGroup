@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Validador MVP2 - Selector Arias Group</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      margin: 20px;
+      background: #f5f7fb;
+      color: #2c3e50;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    h1 {
+      color: #1050B0;
+      border-bottom: 3px solid #1050B0;
+      padding-bottom: 10px;
+    }
+    .test-section {
+      background: white;
+      padding: 20px;
+      margin: 20px 0;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .test-case {
+      border: 1px solid #e0e0e0;
+      margin: 10px 0;
+      padding: 15px;
+      border-radius: 4px;
+    }
+    .test-case.success {
+      border-color: #27ae60;
+      background: #f8fff8;
+    }
+    .test-case.error {
+      border-color: #e74c3c;
+      background: #fff8f8;
+    }
+    .test-case.warning {
+      border-color: #f39c12;
+      background: #fffbf0;
+    }
+    .system-id {
+      font-family: monospace;
+      font-weight: bold;
+      color: #1050B0;
+    }
+    .result {
+      margin-top: 10px;
+      padding: 10px;
+      background: #f8f9fa;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+    .espesor {
+      font-weight: bold;
+      color: #e74c3c;
+    }
+    .titulo {
+      font-weight: bold;
+      color: #2c3e50;
+    }
+    .descripcion {
+      color: #555;
+      font-style: italic;
+    }
+    .error-message {
+      color: #e74c3c;
+      font-weight: bold;
+    }
+    .success-message {
+      color: #27ae60;
+      font-weight: bold;
+    }
+    .warning-message {
+      color: #f39c12;
+      font-weight: bold;
+    }
+    .summary {
+      background: #1050B0;
+      color: white;
+      padding: 20px;
+      border-radius: 8px;
+      margin: 20px 0;
+    }
+    .summary h2 {
+      margin-top: 0;
+    }
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
+      margin-top: 15px;
+    }
+    .stat {
+      text-align: center;
+    }
+    .stat-number {
+      font-size: 2em;
+      font-weight: bold;
+    }
+    .stat-label {
+      font-size: 0.9em;
+      opacity: 0.9;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🧪 Validador MVP2 - Selector Arias Group</h1>
+    <p>Validando generación de metadatos en runtime usando únicamente el catálogo CSV</p>
+    
+    <div class="summary">
+      <h2>Resumen de Validación</h2>
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-number" id="total-tests">0</div>
+          <div class="stat-label">Tests Totales</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number" id="passed-tests">0</div>
+          <div class="stat-label">Aprobados</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number" id="failed-tests">0</div>
+          <div class="stat-label">Fallidos</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number" id="warning-tests">0</div>
+          <div class="stat-label">Advertencias</div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="test-section">
+      <h2>Casos de Prueba de Aceptación</h2>
+      <div id="test-cases"></div>
+    </div>
+    
+    <div class="test-section">
+      <h2>Tests Adicionales</h2>
+      <div id="additional-tests"></div>
+    </div>
+  </div>
+  <!-- MVP2 modules -->
+  <script type="module">
+    import SystemMetadataGenerator from "../engine/systemMetadataGenerator.js";
+    import SystemIntegration from "../engine/systemIntegration.js";
+    // Datos de prueba simulados
+    const catalogoCSV = `| codigo | concepto | unidad | precio_catalogo_almeria | familia_precio |
+| --- | --- | --- | --- | --- |
+| L00A003250A0 | Placa Gypsotech STD BA 13x1200x2500 | ud | 4.20 | PLACA |
+| L00A005200A0 | Placa Gypsotech STD BA 15x1200x2500 | ud | 5.10 | PLACA |
+| L00H003250A0 | Placa Gypsotech AQUA BA 13x1200x2500 | ud | 7.66 | PLACA |
+| C367038299A | Montante 70/37 Z1 2.990 mm | ml | 1.78 | RESTO |
+| C399041299A | Montante 90/40 Z1 2.990 mm | ml | 2.23 | RESTO |
+| U307030300A | Rail 70 Z1 3.000 mm | ml | 1.43 | RESTO |
+| U309030300A | Rail 90 Z1 3.000 mm | ml | 1.75 | RESTO |
+| C174717300A | Perfil TC 47 Z1 3.000 mm | ml | 1.13 | RESTO |`;
+
+    // Casos de prueba de aceptación
+    const casosPrueba = [
+      {
+        id: 'M-70-13-1',
+        tipo: 'Muro',
+        espesorEsperado: 95,
+        materiales: [
+          { codigo: 'L00A003250A0', concepto: 'Gypsotech STD BA 13mm', unidad: 'm2', rendimiento_m2: 2.10 },
+          { codigo: 'C367038299A', concepto: 'Montante 70/37 Z1', unidad: 'ml', rendimiento_m2: 2.8 },
+          { codigo: 'U307030300A', concepto: 'Rail 70 Z1', unidad: 'ml', rendimiento_m2: 0.95 }
+        ]
+      },
+      {
+        id: 'TA-70-13-1',
+        tipo: 'Trasdosado',
+        espesorEsperado: 83,
+        materiales: [
+          { codigo: 'L00A003250A0', concepto: 'Gypsotech STD BA 13mm', unidad: 'm2', rendimiento_m2: 2.10 },
+          { codigo: 'C367038299A', concepto: 'Montante 70/37 Z1', unidad: 'ml', rendimiento_m2: 1.60 },
+          { codigo: 'U307030300A', concepto: 'Rail 70 Z1', unidad: 'ml', rendimiento_m2: 0.70 }
+        ]
+      },
+      {
+        id: 'T-TC47-13-1',
+        tipo: 'Techo',
+        espesorEsperado: 60,
+        materiales: [
+          { codigo: 'L00A003250A0', concepto: 'Gypsotech STD BA 13mm', unidad: 'm2', rendimiento_m2: 2.10 },
+          { codigo: 'C174717300A', concepto: 'Perfil TC 47 Z1', unidad: 'ml', rendimiento_m2: 1.50 }
+        ]
+      }
+    ];
+
+    // Tests adicionales
+    const testsAdicionales = [
+      { id: 'M-70-15-1', tipo: 'Muro', espesorEsperado: 105 },
+      { id: 'M-90-13-1', tipo: 'Muro', espesorEsperado: 115 },
+      { id: 'M-90-15-1', tipo: 'Muro', espesorEsperado: 135 },
+      { id: 'M-70-13-2', tipo: 'Muro', espesorEsperado: 120 },
+      { id: 'M-70-13-AQUA-1', tipo: 'Muro', espesorEsperado: 95 },
+      { id: 'TA-90-13-1', tipo: 'Trasdosado', espesorEsperado: 103 },
+      { id: 'TA-70-13-AQUA-2', tipo: 'Trasdosado', espesorEsperado: 110 },
+      { id: 'T-TC60-13-1', tipo: 'Techo', espesorEsperado: 73 }
+    ];
+
+    let stats = {
+      total: 0,
+      passed: 0,
+      failed: 0,
+      warnings: 0
+    };
+
+    // Inicializar generador
+    async function runTests() {
+      const generator = new SystemMetadataGenerator();
+      await generator.loadCatalogo(catalogoCSV);
+
+      // Ejecutar casos de prueba
+      const testCasesContainer = document.getElementById('test-cases');
+      
+      for (const testCase of casosPrueba) {
+        stats.total++;
+        const result = generator.generarMetadatos(testCase.id, testCase.materiales);
+        
+        const testDiv = document.createElement('div');
+        testDiv.className = 'test-case';
+        
+        let status = 'success';
+        let messages = [];
+        
+        // Validar espesor
+        if (result.espesor_total_mm !== testCase.espesorEsperado) {
+          status = 'error';
+          messages.push(`Espesor incorrecto: esperado ${testCase.espesorEsperado}mm, obtenido ${result.espesor_total_mm}mm`);
+        }
+        
+        // Validar tipo
+        if (result.tipo !== testCase.tipo) {
+          status = 'error';
+          messages.push(`Tipo incorrecto: esperado ${testCase.tipo}, obtenido ${result.tipo}`);
+        }
+        
+        // Validar que no hay errores
+        if (result.error) {
+          status = 'error';
+          messages.push(`Error: ${result.error}`);
+        }
+        
+        // Validar validación de catálogo
+        if (result.validacion_catalogo && !result.validacion_catalogo.valido) {
+          status = 'warning';
+          messages.push(`Materiales no encontrados: ${result.validacion_catalogo.noEncontrados.join(', ')}`);
+        }
+        
+        if (messages.length === 0) {
+          messages.push('✅ Todas las validaciones pasaron');
+          stats.passed++;
+        } else if (status === 'warning') {
+          stats.warnings++;
+        } else {
+          stats.failed++;
+        }
+        
+        testDiv.className += ` ${status}`;
+        
+        testDiv.innerHTML = `
+          <h3><span class="system-id">${testCase.id}</span> - ${status === 'success' ? '✅ Aprobado' : status === 'warning' ? '⚠️ Advertencia' : '❌ Fallado'}</h3>
+          <div class="result">
+            <div class="titulo">📄 Título PDF: <span>${result.titulo_pdf}</span></div>
+            <div class="descripcion">📝 Descripción: <span>${result.descripcion_tecnica_corta}</span></div>
+            <div class="espesor">📏 Espesor Total: <span>${result.espesor_total_mm} mm</span></div>
+            <div class="${status === 'success' ? 'success-message' : status === 'warning' ? 'warning-message' : 'error-message'}">
+              ${messages.join('<br>')}
+            </div>
+          </div>
+        `;
+        
+        testCasesContainer.appendChild(testDiv);
+      }
+
+      // Ejecutar tests adicionales
+      const additionalTestsContainer = document.getElementById('additional-tests');
+      
+      for (const testCase of testsAdicionales) {
+        stats.total++;
+        const result = generator.generarMetadatos(testCase.id, []);
+        
+        const testDiv = document.createElement('div');
+        testDiv.className = 'test-case';
+        
+        let status = 'success';
+        let messages = [];
+        
+        // Validar espesor
+        if (result.espesor_total_mm !== testCase.espesorEsperado) {
+          status = 'error';
+          messages.push(`Espesor incorrecto: esperado ${testCase.espesorEsperado}mm, obtenido ${result.espesor_total_mm}mm`);
+        }
+        
+        // Validar tipo
+        if (result.tipo !== testCase.tipo) {
+          status = 'error';
+          messages.push(`Tipo incorrecto: esperado ${testCase.tipo}, obtenido ${result.tipo}`);
+        }
+        
+        if (messages.length === 0) {
+          messages.push('✅ Validación de espesor correcta');
+          stats.passed++;
+        } else {
+          stats.failed++;
+        }
+        
+        testDiv.className += ` ${status}`;
+        
+        testDiv.innerHTML = `
+          <h3><span class="system-id">${testCase.id}</span> - ${status === 'success' ? '✅ Aprobado' : '❌ Fallado'}</h3>
+          <div class="result">
+            <div class="espesor">📏 Espesor Total: <span>${result.espesor_total_mm} mm</span> (esperado: ${testCase.espesorEsperado} mm)</div>
+            <div class="${status === 'success' ? 'success-message' : 'error-message'}">
+              ${messages.join('<br>')}
+            </div>
+          </div>
+        `;
+        
+        additionalTestsContainer.appendChild(testDiv);
+      }
+
+      // Actualizar resumen
+      document.getElementById('total-tests').textContent = stats.total;
+      document.getElementById('passed-tests').textContent = stats.passed;
+      document.getElementById('failed-tests').textContent = stats.failed;
+      document.getElementById('warning-tests').textContent = stats.warnings;
+    }
+
+    // Ejecutar tests al cargar
+    document.addEventListener('DOMContentLoaded', runTests);
+  </script>
+</body>
+</html>

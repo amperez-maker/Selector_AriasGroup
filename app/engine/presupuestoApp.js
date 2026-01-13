@@ -167,10 +167,38 @@ const systems = idx.systems || [];
 window.__sistemasIndex = systems;
 return systems;
 }
-document.addEventListener('DOMContentLoaded', async () => {
-if (systemsIndexEnriched.length === 0) {
-systemsIndexEnriched = await loadIndexEnriched();
+// ===============================
+// MVP2 INIT (Paso 2)
+// ===============================
+window.systemIntegration = window.systemIntegration || null;
+
+async function initSystemIntegrationOnce() {
+  if (window.systemIntegration) return window.systemIntegration;
+
+  // MVP2 aún no cargado → no romper legacy
+  if (!window.SystemIntegration || !window.SystemMetadataGenerator) {
+    console.warn("MVP2 no activo todavía (legacy sigue funcionando)");
+    return null;
+  }
+  const generator = new window.SystemMetadataGenerator();
+  const integration = new window.SystemIntegration(generator);
+  await integration.initialize();
+
+  window.systemIntegration = integration;
+  return window.systemIntegration;
 }
+document.addEventListener('DOMContentLoaded', async () => {
+  await initSystemIntegrationOnce(); // 👈 AÑADIDO (PASO 2)
+
+  if (systemsIndexEnriched.length === 0) {
+    systemsIndexEnriched = await loadIndexEnriched();
+  }
+  if (systemsIndexBase.length === 0) {
+    systemsIndexBase = await loadIndexBase();
+  }
+  initSelectionFlow();
+});
+
 if (systemsIndexBase.length === 0) {
 systemsIndexBase = await loadIndexBase();
 }
@@ -184,21 +212,27 @@ const sistema = systemsIndexBase.find(s => s.id === systemId);
 if (!sistema) {
 throw new Error(`Sistema ${systemId} no encontrado`);
 }
-sistemaActualMeta = sistema;
-await calcularYMostrarConSistema(sistema, false);
+// ✅ MVP2: traer metadatos runtime (título/descr/espesor) desde catálogo
+let sys = null;
+if (window.systemIntegration) {
+  try {
+    sys = await window.systemIntegration.getSystemForEngine(sistema.id);
+  } catch (e) {
+    console.warn("MVP2 meta fallback legacy:", e);
+  }
 }
-async function calcularYMostrarConSistema(meta, addToProject = false) {
-const area = toNum(document.getElementById('area').value);
-const waste = toNum(document.getElementById('waste').value);
-const logisticaPct = toNum(document.getElementById('logisticaPct').value);
-const margenPct = toNum(document.getElementById('margenPct').value);
-const incoterm = document.getElementById('incoterm').value;
-if (!meta || area <= 0) {
-document.getElementById('resumenSistema').style.display = 'none';
-document.getElementById('fichaTecnica').style.display = 'none';
-document.getElementById('descripcionTecnica').style.display = 'none';
-return null;
-}
+
+// ✅ Mantener legacy para el resto, pero sobreescribir SOLO metadatos
+const metaFinal = {
+  ...sistema,
+  titulo_pdf: sys?.title || sistema.titulo_pdf,
+  descripcion_tecnica_corta: sys?.description || sistema.descripcion_tecnica_corta,
+  espesor_total_mm: (sys?.totalThickness ?? sistema.espesor_total_mm),
+  csv: sys?.csv || sistema.csv
+};
+
+sistemaActualMeta = metaFinal;
+await calcularYMostrarConSistema(metaFinal, false);
 renderFichaTecnica(meta);
 renderDescripcionTecnica(meta);
 await ensureCatalogLoaded();

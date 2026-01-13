@@ -1,0 +1,7 @@
+app/output/
+app/exports/
+app/tmp/
+app/cache/
+app/generated/
+*.pdf
+*.xlsx

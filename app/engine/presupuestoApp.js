@@ -901,8 +901,28 @@ const precioPorM2 = p.ventaM2 || (p.precioVentaSistema || 0) / p.area;
 const totalSistema = p.precioVentaSistema || 0;
 const incotermSistema = p.incoterm || 'CIF';
 const sistemaId = p.system || p.meta?.id;
-const metaFresh = systemsIndex.find(s => s.id === sistemaId) || p.meta || {};
+let metaFresh = systemsIndex.find(s => s.id === sistemaId) || p.meta || {};
+
+if (window.systemIntegration) {
+  try {
+    const sys = await window.systemIntegration.getSystemForEngine(sistemaId);
+    metaFresh = {
+      ...metaFresh,
+      titulo_pdf: sys?.title || metaFresh.titulo_pdf,
+      descripcion_tecnica_corta: sys?.description || metaFresh.descripcion_tecnica_corta,
+      espesor_total_mm: (sys?.totalThickness ?? metaFresh.espesor_total_mm),
+      csv: sys?.csv || metaFresh.csv
+    };
+  } catch (e) {
+    console.warn("MVP2 meta PDF fallback legacy:", e);
+  }
+}
+
 const tituloPdf = metaFresh.titulo_pdf || metaFresh.nombre_comercial || metaFresh.name || sistemaId;
+const espesorTotal = metaFresh.espesor_total_mm;
+if (espesorTotal !== undefined && espesorTotal !== null) {
+  doc.text(`• Espesor total aprox.: ${espesorTotal} mm`, 14, y); y += 5;
+}
 resumenData.push({sistema: `${sistemaId} — ${tituloPdf}`,m2: p.area,precioM2: precioPorM2,total: totalSistema,incoterm: incotermSistema});
 doc.setDrawColor(220, 220, 220); doc.setLineWidth(0.5); doc.line(14, y, 196, y); y += 8;
 doc.setFontSize(13); doc.setFont(undefined, 'bold'); doc.setTextColor('#2c3e50');
